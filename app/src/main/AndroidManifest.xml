@@ -12,10 +12,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".views.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

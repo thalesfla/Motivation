@@ -1,8 +1,11 @@
-package com.example.motivation
+package com.example.motivation.views
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import com.example.motivation.R
 import com.example.motivation.util.MotivationConstants
 import com.example.motivation.util.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -26,8 +29,22 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    //funão para armazenar o nome na Sharedpreferences
     private fun handleSave() {
         val name: String = editName.text.toString()
-        mSecurity.storeString(MotivationConstants.KEY.PERSON_NAME, name)
+
+        if (name == "") {
+            Toast.makeText(this, getString(R.string.informe_nome), Toast.LENGTH_LONG).show()
+        } else {
+            mSecurity.storeString(MotivationConstants.KEY.PERSON_NAME, name)
+
+            val intent = Intent(this, MainActivity::class.java)
+
+            startActivity(intent)
+
+            // Impede que seja possivel voltar a esta activity
+            finish()
+        }
+
     }
 }

@@ -12,6 +12,6 @@ class SecurityPreferences(context: Context) {
     }
 
     fun getStoredString(key: String): String {
-        return mSharedPreferences.getString(key, "")
+        return mSharedPreferences.getString(key, MotivationConstants.KEY.PERSON_NAME)
     }
 }
