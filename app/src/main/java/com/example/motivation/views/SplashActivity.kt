@@ -19,7 +19,10 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_splash)
 
         mSecurity = SecurityPreferences(this)
+
         buttonSave.setOnClickListener(this)
+
+        verifyUserName()
     }
 
     override fun onClick(view: View) {
@@ -29,7 +32,15 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    //funão para armazenar o nome na Sharedpreferences
+    private fun verifyUserName() {
+        val userName = mSecurity.getStoredString(MotivationConstants.KEY.PERSON_NAME)
+        if (userName != "") {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        editName.setText(userName)
+    }
+
+    //função para armazenar o nome na Sharedpreferences
     private fun handleSave() {
         val name: String = editName.text.toString()
 

@@ -1,8 +1,12 @@
 package com.example.motivation.mock
 
 import com.example.motivation.util.MotivationConstants
+import java.util.*
 
-class Phrase(description: String, category: Int)
+class Phrase(val description: String, val category: Int)
+
+fun Int.random(): Int =  Random().nextInt(this)
+
 
 class Mock {
 
@@ -25,4 +29,13 @@ class Mock {
         Phrase("Se você acredita, faz toda a diferença.", SUN),
         Phrase("Riscos devem ser corridos, porque o maior perigo é não arriscar nada!", SUN)
     )
+
+    fun getPhrase(value: Int): String {
+
+        val filtered = mListPhrases.filter {it.category == value || value == ALL }
+
+       val rand = filtered.size.random()
+
+        return filtered[rand].description
+    }
 }

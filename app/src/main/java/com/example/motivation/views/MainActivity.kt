@@ -4,23 +4,31 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.motivation.R
+import com.example.motivation.mock.Mock
 import com.example.motivation.util.MotivationConstants
+import com.example.motivation.util.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private var mFilter: Int = MotivationConstants.PHRASE_FILTER.ALL
+    private lateinit var mSecurityPreferences: SecurityPreferences
+    private val mMock = Mock()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mSecurityPreferences = SecurityPreferences(this)
 
         //Eventos
         setListeners()
 
         //Inicializa
         handleFilter(R.id.imageAll)
+        refreshPhrase()
+        verifyUserName()
 
     }
 
@@ -30,7 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val listId = listOf(R.id.imageAll, R.id.imageSun, R.id.imageHappy)
         if (id in listId) {
             handleFilter(id)
-        } else {
+        } else if (id == R.id.buttonNewPhrase) {
             refreshPhrase()
         }
     }
@@ -41,6 +49,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         imageSun.setOnClickListener(this)
         imageHappy.setOnClickListener(this)
         buttonNewPhrase.setOnClickListener(this)
+    }
+
+    private fun verifyUserName() {
+        textUserName.text = mSecurityPreferences.getStoredString(MotivationConstants.KEY.PERSON_NAME)
+
     }
 
     private fun handleFilter(id: Int) {
@@ -63,6 +76,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun refreshPhrase() {
+        textPhrase.text = mMock.getPhrase(mFilter)
 
     }
 }
